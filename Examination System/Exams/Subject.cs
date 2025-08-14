@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssignmentExamination_System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,12 @@ namespace Examination_System.Exams
         #endregion
 
         #region Methods
-        public Exam CreateExam(ExamType examType)
+        public Exam CreateExam()
         {
+            ExamType examType = Helper.GetFromUserByType<ExamType>(
+                "the type of Exam (1 for Practical | 2 for Final)",
+                false);
+
             Exam exam;
             switch (examType)
             {

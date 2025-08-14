@@ -38,33 +38,54 @@ namespace Examination_System.Exams
         public int NumberOfQuestions { get; set; }
         public TimeOnly TimeOfExam { get; set; }
         public abstract List<Question> QuestionList { get; }
+        public List<Answer> userAnswers { get; set; }
         public Subject Subject { get; set; }
         internal protected static List<QuestionType>? AvilableQuestionTypes { get; set; }
         #endregion
 
         #region Methods
         private protected abstract List<Question> SetQuestionListFromUser();
+        private protected virtual void ShowExamQustions()
+        {
+            userAnswers = new List<Answer>(questionsList.Count);
+            for (int i = 0; i < questionsList.Count; i++)
+            {
+                Console.WriteLine($"{questionsList[i].Body}\n");
+                foreach (var ans in questionsList[i].AnswerList)
+                {
+                    Console.WriteLine($"{ans.AnswerId}- {ans.AnswerText}");
+                }
+                int userAnswerId = Helper.GetIntFromUser("The answer Id", false);
+                userAnswers.Add(
+                    new Answer(userAnswerId,
+                     questionsList[i].AnswerList[userAnswerId].AnswerText));
+            }
+        }
         public void StartExam()
         {
-            DateTime endTime;
-            endTime = DateTime.Now.Add(TimeOfExam.ToTimeSpan());
+            DateTime endTime = DateTime.Now.Add(TimeOfExam.ToTimeSpan());
 
-
-            System.Timers.Timer timer = new System.Timers.Timer(1000); // Tick every second
+            System.Timers.Timer timer = new System.Timers.Timer(1000); // 1 second
             timer.Elapsed += OnTimedEvent;
             timer.Start();
 
+            ShowExamQustions(); // Show once at the start
+
+            // Prevent program from exiting before timer finishes
+            while (DateTime.Now < endTime)
+            {
+                Thread.Sleep(500);
+            }
+
+            timer.Stop();
+            Console.WriteLine("⏰ Exam ended.");
+
             void OnTimedEvent(object sender, ElapsedEventArgs e)
             {
-                if (DateTime.Now >= endTime)
-                {
-                    Console.WriteLine("⏰ Exam ended.");
-                    timer.Stop();
-                    return;
-                }
-                else Console.WriteLine($"⏳ Exam Started... {DateTime.Now}");
+                //Console.WriteLine($"⏳ Exam running... {DateTime.Now}");
             }
         }
+
         public abstract void showAnswers();
         public TimeOnly GetTimeFromUserByMinutes()
         {

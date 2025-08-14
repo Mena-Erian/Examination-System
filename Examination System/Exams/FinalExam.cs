@@ -39,8 +39,8 @@ namespace Examination_System.Exams
 
             for (int i = 0; i < NumberOfQuestions; i++)
             {
-                Console.Clear();
                 QuestionType questionsType = GetQuestionsTypeFromUser();
+                Console.Clear();
 
                 switch (questionsType)
                 {

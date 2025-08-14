@@ -11,14 +11,11 @@ namespace Examination_System
         {
             Subject subject = new Subject(1, "OOP Exam");
 
-            ExamType examType = Helper.GetFromUserByType<ExamType>(
-                "the type of Exam (1 for Practical | 2 for Final)",
-                false);
-
-            Exam exam = subject.CreateExam(examType);
-
+            Exam exam = subject.CreateExam();
+            
+            Console.Clear();
             if (Helper.GetBoolFromUserByChar(
-                "Do you Want to Start Exam (Y | N)",
+                "Do you Want to Start Exam (Y | N): ",
                 true))
             {
                 exam.StartExam();
