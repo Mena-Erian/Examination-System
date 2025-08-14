@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,8 +17,19 @@ namespace AssignmentExamination_System
     }
     public static class Helper
     {
-        public static IFormatProvider DefaultformatProvider = CultureInfo.CurrentCulture;
+        public static TimeOnly GetTimeOnlyByMinutes(string Msg, bool isMainMsg = true, int minutes = 0)
+        {
+            if (minutes == 0) minutes = GetIntFromUser(Msg, isMainMsg);
 
+            int hours = minutes / 60;
+            minutes %= 60;
+
+            return new TimeOnly(hours, minutes);
+        }
+        public static TEnum GetFromUserByType<TEnum>(string? MsgToUser, bool isMainMsg = true) where TEnum : Enum
+            => (TEnum)Enum.ToObject(typeof(TEnum), GetIntFromUser(MsgToUser, isMainMsg));
+
+        public static IFormatProvider DefaultformatProvider = CultureInfo.CurrentCulture;
         public static List<T> GetArrFormUser<T>(string dataName, int arrSize,
                     IFormatProvider? formatProvider, char[]? seperators = null) where T : IParsable<T>
         {
@@ -46,7 +59,6 @@ namespace AssignmentExamination_System
 
             return arr;
         }
-
         public static List<T> GetArrFormUser<T>(int arrSize,
             IFormatProvider? formatProvider) where T : IParsable<T>
         {
@@ -219,5 +231,7 @@ namespace AssignmentExamination_System
             foreach (T item in values) Console.Write($"{item}, ");
             Console.Write("]");
         }
+
+
     }
 }

@@ -17,10 +17,10 @@ namespace Examination_System.Exams
             QuestionList = questionList;
             Subject = subject;
         }
-        protected Exam()
-        {
+        //protected Exam()
+        //{
 
-        }
+        //}
         #endregion
 
         #region Properties
@@ -28,6 +28,7 @@ namespace Examination_System.Exams
         public TimeOnly TimeOfExam { get; set; }
         public abstract List<Question> QuestionList { get; set; }
         public Subject Subject { get; set; }
+
         #endregion
 
         #region Methods
@@ -35,6 +36,9 @@ namespace Examination_System.Exams
         public override string ToString()
             => $"Number: {NumberOfQuestions},Time: {TimeOfExam},Subject: {Subject.SubjectName}";
         #endregion
-
+    }
+    internal enum ExamType
+    {
+        Practical = 1, Final
     }
 }
