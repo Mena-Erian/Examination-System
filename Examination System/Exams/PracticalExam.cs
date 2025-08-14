@@ -1,4 +1,5 @@
-﻿using Examination_System.Questions;
+﻿using AssignmentExamination_System;
+using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,7 @@ namespace Examination_System.Exams
         public PracticalExam(int numberOfQuestions, TimeOnly timeOfExam, List<Question> questionList, Subject subject) : base(numberOfQuestions, timeOfExam, questionList, subject)
         {
         }
-        public PracticalExam(Subject subject) : base(subject)
-        {
-            //base.QuestionList = new List<Question>();
-
-        }
+        public PracticalExam(Subject subject) : base(subject) { }
         static PracticalExam()
         {
             AvilableQuestionTypes = [QuestionType.MCQ];
@@ -25,28 +22,31 @@ namespace Examination_System.Exams
         #endregion
 
         #region Propeties
-        public override List<Question> QuestionList
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public override List<Question> QuestionList => this.questionsList;
         #endregion
 
         #region Methods
         private protected override List<Question> SetQuestionListFromUser()
         {
-            throw new NotImplementedException();
-        }
-        public override void showAnswers()
-        {
-            throw new NotImplementedException();
-        }
+            List<Question> questions = new List<Question>(NumberOfQuestions);
 
-        public override List<Question> GetQuestionsFromUser(ExamType examType)
+            for (int i = 0; i < NumberOfQuestions; i++)
+            {
+                Console.Clear();
+
+                Console.WriteLine("MCQ Question");
+                questions.Add(new McqQuestion());
+            }
+
+            return questions;
+        }
+        public override void showResultOfAnswers(List<Answer> userAnswers, out string gradeText, out decimal grade)
         {
-            throw new NotImplementedException();
+            base.showResultOfAnswers(userAnswers, out gradeText, out grade);
+        }
+        private protected override void ShowExamQustions(string ExamType)
+        {
+            base.ShowExamQustions("True | False Question");
         }
         #endregion
     }

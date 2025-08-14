@@ -1,4 +1,5 @@
 ﻿using AssignmentExamination_System;
+using Examination_System.Helpers;
 using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace Examination_System.Exams
             {
                 Console.Clear();
                 QuestionType questionsType = GetQuestionsTypeFromUser();
+                Console.Clear();
 
                 switch (questionsType)
                 {
@@ -62,20 +64,17 @@ namespace Examination_System.Exams
                "the Type of Question (1 for MCQ | 2 For True | False)",
                false);
         }
-        private decimal CalcGrade()
+        private protected override void ShowExamQustions(string E)
         {
-            throw new NotImplementedException();
+            base.ShowExamQustions("MCQ Question");
         }
-        public override void showAnswers()
+        public override void showResultOfAnswers(List<Answer> userAnswers, out string gradetext, out decimal grade)
         {
-            throw new NotImplementedException();
+            base.showResultOfAnswers(userAnswers, out gradetext, out grade);
+            Console.WriteLine(gradetext);
+            this.Grade = grade;
         }
         public override string ToString() => $"{base.ToString()}, Grade: {Grade}";
-
-        public override List<Question> GetQuestionsFromUser(ExamType examType)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

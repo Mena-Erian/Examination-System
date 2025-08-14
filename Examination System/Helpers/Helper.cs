@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examination_System.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,9 +18,12 @@ namespace AssignmentExamination_System
     }
     public static class Helper
     {
-        public static TimeOnly GetTimeOnlyByMinutes(string Msg, bool isMainMsg = true, int minutes = 0)
+        public static TimeOnly GetTimeOnlyByMinutes(string Msg, bool isMainMsg = true, int minutes = 0, Range<int>? range = null)
         {
             if (minutes == 0) minutes = GetIntFromUser(Msg, isMainMsg);
+            if (range is not null)
+                while (!range.IsInRange(minutes))
+                    minutes = GetIntFromUser(Msg, isMainMsg);
 
             int hours = minutes / 60;
             minutes %= 60;
@@ -224,6 +228,45 @@ namespace AssignmentExamination_System
 
             return str;
         }
+        public static char GetCharFromUser(string msg, bool isMainMsg = false)
+        {
+            char character = default(char);
+            bool isParsed = false;
+            if (isMainMsg)
+            {
+                do
+                {
+                    Console.Write(msg);
+                    isParsed = char.TryParse(Console.ReadLine(), out character);
+                }
+                while (!(isParsed && !int.TryParse(character.ToString(), out _)));
+            }
+            else
+            {
+                do
+                {
+                    Console.Write($"Please Enter {msg}: ");
+                    isParsed = char.TryParse(Console.ReadLine(), out character);
+                }
+                while (!(isParsed && !int.TryParse(character.ToString(), out _)));
+            }
+
+            return character;
+        }
+        public static bool GetBoolFromUserByChar(string MsgToUser, bool isMainMsg = false)
+        {
+            char chr;
+            do
+            {
+                chr = Helper.GetCharFromUser(MsgToUser,
+                      isMainMsg);
+            }
+            while (!(chr.ToString().ToLower() == "y" ||
+                   chr.ToString().ToLower() == "n"));
+            if (chr.ToString().ToLower() == "y") return true;
+            else return false;
+        }
+
         public static void Print<T>(this T value) => Console.WriteLine(value);
         public static void Print<T>(this IEnumerable<T> values) where T : IEnumerable
         {
