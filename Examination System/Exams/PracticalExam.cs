@@ -9,6 +9,13 @@ namespace Examination_System.Exams
 {
     internal class PracticalExam : Exam
     {
+        #region Constructors
+        public PracticalExam(int numberOfQuestions, TimeOnly timeOfExam, List<Question> questionList, Subject subject) : base(numberOfQuestions, timeOfExam, questionList, subject)
+        {
+        }
+        #endregion
+
+        
         public override List<Question> QuestionList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void showAnswers()

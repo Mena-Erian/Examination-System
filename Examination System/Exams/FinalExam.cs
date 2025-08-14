@@ -9,6 +9,12 @@ namespace Examination_System.Exams
 {
     internal class FinalExam : Exam
     {
+        #region Constructros
+        public FinalExam(int numberOfQuestions, TimeOnly timeOfExam, List<Question> questionList, Subject subject) : base(numberOfQuestions, timeOfExam, questionList, subject)
+        {
+        }
+        #endregion
+
         #region Properties
         public decimal Grade { get; private set; }
         public override List<Question> QuestionList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
