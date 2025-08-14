@@ -1,5 +1,6 @@
 ﻿using AssignmentExamination_System;
 using Examination_System.Exams;
+using Examination_System.Helpers;
 using Examination_System.Questions;
 
 namespace Examination_System
@@ -15,6 +16,16 @@ namespace Examination_System
                 false);
 
             Exam exam = subject.CreateExam(examType);
+
+            if (Helper.GetBoolFromUserByChar(
+                "Do you Want to Start Exam (Y | N)",
+                true))
+            {
+                exam.StartExam();
+            }
+
+
+
         }
     }
 }

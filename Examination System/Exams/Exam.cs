@@ -1,10 +1,12 @@
 ﻿using AssignmentExamination_System;
+using Examination_System.Helpers;
 using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Examination_System.Exams
 {
@@ -24,12 +26,12 @@ namespace Examination_System.Exams
             this.NumberOfQuestions = GetNumberOfQuestions();
             this.Subject = subject;
             this.questionsList = SetQuestionListFromUser();
-
         }
         #endregion
 
         #region Feilds
         private protected List<Question> questionsList;
+
         #endregion
 
         #region Properties
@@ -42,10 +44,35 @@ namespace Examination_System.Exams
 
         #region Methods
         private protected abstract List<Question> SetQuestionListFromUser();
+        public void StartExam()
+        {
+            DateTime endTime;
+            endTime = DateTime.Now.Add(TimeOfExam.ToTimeSpan());
+
+
+            System.Timers.Timer timer = new System.Timers.Timer(1000); // Tick every second
+            timer.Elapsed += OnTimedEvent;
+            timer.Start();
+
+            void OnTimedEvent(object sender, ElapsedEventArgs e)
+            {
+                if (DateTime.Now >= endTime)
+                {
+                    Console.WriteLine("⏰ Exam ended.");
+                    timer.Stop();
+                    return;
+                }
+                else Console.WriteLine($"⏳ Exam Started... {DateTime.Now}");
+            }
+        }
+        public abstract void showAnswers();
         public TimeOnly GetTimeFromUserByMinutes()
-          => Helper.GetTimeOnlyByMinutes(
-                "the Time For Exam From (30 min to 180 min)",
-                false);
+        {
+            return Helper.GetTimeOnlyByMinutes(
+                        "the Time For Exam From (30 min to 180 min)",
+                        false,
+                        range: new Range<int>(30, 180));
+        }
         public int GetNumberOfQuestions(bool withConsoleClear = true)
         {
             int value = Helper.GetIntFromUser(
@@ -56,8 +83,6 @@ namespace Examination_System.Exams
 
             return value;
         }
-        public abstract List<Question> GetQuestionsFromUser(ExamType examType);
-        public abstract void showAnswers();
         public override string ToString()
             => $"Number: {NumberOfQuestions},Time: {TimeOfExam},Subject: {Subject.SubjectName}";
         #endregion

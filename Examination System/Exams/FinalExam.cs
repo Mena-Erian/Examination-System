@@ -1,4 +1,5 @@
 ﻿using AssignmentExamination_System;
+using Examination_System.Helpers;
 using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
@@ -71,11 +72,6 @@ namespace Examination_System.Exams
             throw new NotImplementedException();
         }
         public override string ToString() => $"{base.ToString()}, Grade: {Grade}";
-
-        public override List<Question> GetQuestionsFromUser(ExamType examType)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }
