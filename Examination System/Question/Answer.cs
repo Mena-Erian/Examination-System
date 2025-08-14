@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Examination_System.Question
 {
-    internal class Answer
+     abstract class Answer
     {
     }
 }
