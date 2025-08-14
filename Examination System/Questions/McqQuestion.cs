@@ -9,6 +9,16 @@ namespace Examination_System.Questions
     internal class McqQuestion : Question
     {
         public CountOfAnswer CountOfAnswers { get; set; }
+        public override List<Answer> AnswerList
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+        public override Answer RightAnswer
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
     }
     enum CountOfAnswer
     {
