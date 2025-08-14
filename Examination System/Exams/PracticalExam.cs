@@ -13,14 +13,41 @@ namespace Examination_System.Exams
         public PracticalExam(int numberOfQuestions, TimeOnly timeOfExam, List<Question> questionList, Subject subject) : base(numberOfQuestions, timeOfExam, questionList, subject)
         {
         }
+        public PracticalExam(Subject subject) : base(subject)
+        {
+            //base.QuestionList = new List<Question>();
+
+        }
+        static PracticalExam()
+        {
+            AvilableQuestionTypes = [QuestionType.MCQ];
+        }
         #endregion
 
-        
-        public override List<Question> QuestionList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        #region Propeties
+        public override List<Question> QuestionList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+        #endregion
 
+        #region Methods
+        private protected override List<Question> SetQuestionListFromUser()
+        {
+            throw new NotImplementedException();
+        }
         public override void showAnswers()
         {
             throw new NotImplementedException();
         }
+
+        public override List<Question> GetQuestionsFromUser(ExamType examType)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

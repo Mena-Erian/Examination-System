@@ -9,27 +9,43 @@ namespace Examination_System.Exams
     internal class Subject
     {
         #region Constructors
-        public Subject(int subjectId, string subjectName, Exam examOfSubject)
+        public Subject(int subjectId, string subjectName)
         {
             SubjectId = subjectId;
             SubjectName = subjectName;
+        }
+        public Subject(int subjectId, string subjectName, Exam examOfSubject) : this(subjectId, subjectName)
+        {
             ExamOfSubject = examOfSubject;
-        } 
+        }
         #endregion
 
         #region Properteis
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
-        public Exam ExamOfSubject { get; set; } 
+        public Exam ExamOfSubject { get; set; }
         #endregion
 
         #region Methods
-        public void CreateExam()
+        public Exam CreateExam(ExamType examType)
         {
+            Exam exam;
+            switch (examType)
+            {
+                case ExamType.Practical:
+                    exam = new PracticalExam(this);
+                    break;
+                case ExamType.Final:
+                    exam = new FinalExam(this);
+                    break;
+                default:
+                    goto case ExamType.Practical;
+            }
 
+            return exam;
         }
         public override string ToString() =>
-            $"Subject Id: {SubjectId},Subject Name: {SubjectName}"; 
+            $"Subject Id: {SubjectId},Subject Name: {SubjectName}";
         #endregion
     }
 }
