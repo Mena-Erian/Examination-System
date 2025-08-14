@@ -8,38 +8,20 @@ namespace Examination_System
     {
         static void Main()
         {
-            Subject subject;
-            
-            ExamType typeOfExam = Helper.GetFromUserByType<ExamType>(
+            Subject subject = new Subject(1, "OOP Exam");
+
+            ExamType examType = Helper.GetFromUserByType<ExamType>(
                 "the type of Exam (1 for Practical | 2 for Final)",
                 false);
+
+            Exam exam = subject.CreateExam(examType);
+
             
-            TimeOnly timeOfExam = Helper.GetTimeOnlyByMinutes(
-                "the Time For Exam From (30 min to 180 min)",
+
+            QuestionType typeOfQuestion = Helper.GetFromUserByType<QuestionType>(
+                "the Type of Question (1 for MCQ | 2 For True | False)",
                 false);
-            int numberOfQuestions = Helper.GetIntFromUser(
-                "the Number of questions", false
-                );
-            Console.Clear();
-            
-            /// typeOfQuestion = Helper.GetFromUserByType<ExamType>(
-            ///    "the type of Exam (1 for Practical | 2 for Final)",
-            ///    false);
-            /// 
-            /// 
-            /// switch (typeOfExam)
-            /// {
-            ///     case ExamType.Practical:
-            /// 
-            ///         break;
-            ///     case ExamType.Final:
-            ///         subject = new Subject(1, "FirstSubject",
-            ///       new FinalExam(numberOfQuestions,timeOfExam)
-            ///          );
-            ///         break;
-            ///     default:
-            ///         break;
-            /// }
+
 
 
 

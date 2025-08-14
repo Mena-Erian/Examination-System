@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examination_System.Exams;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,10 +30,13 @@ namespace Examination_System.Questions
         #endregion
 
         #region Methods
-
+        public abstract List<Question> GetQuestionsFromUser(ExamType examType);
         public override string ToString() =>
             $"Header: {Header}, Body: {Body}, Mark: {Mark}, RightAnswer: {RightAnswer}";
         #endregion
-
+    }
+    internal enum QuestionType
+    {
+        MCQ = 1, TrueOrFalse
     }
 }

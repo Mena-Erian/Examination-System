@@ -13,9 +13,12 @@ namespace Examination_System.Exams
         public PracticalExam(int numberOfQuestions, TimeOnly timeOfExam, List<Question> questionList, Subject subject) : base(numberOfQuestions, timeOfExam, questionList, subject)
         {
         }
+        public PracticalExam(Subject subject) : base(subject)
+        {
+        }
         #endregion
 
-        
+
         public override List<Question> QuestionList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void showAnswers()

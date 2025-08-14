@@ -13,6 +13,10 @@ namespace Examination_System.Exams
         public FinalExam(int numberOfQuestions, TimeOnly timeOfExam, List<Question> questionList, Subject subject) : base(numberOfQuestions, timeOfExam, questionList, subject)
         {
         }
+        public FinalExam(Subject subject) : base(subject)
+        {
+            
+        }
         #endregion
 
         #region Properties

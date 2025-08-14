@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examination_System.Exams;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,11 @@ namespace Examination_System.Questions
         {
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
+        }
+
+        public override List<Question> GetQuestionsFromUser(ExamType examType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

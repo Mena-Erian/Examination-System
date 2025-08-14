@@ -1,4 +1,5 @@
-﻿using Examination_System.Questions;
+﻿using AssignmentExamination_System;
+using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,12 @@ namespace Examination_System.Exams
             QuestionList = questionList;
             Subject = subject;
         }
-        //protected Exam()
-        //{
-
-        //}
+        protected Exam(Subject subject)
+        {
+            this.TimeOfExam = GetTimeFromUserByMinutes();
+            this.NumberOfQuestions = GetNumberOfQuestions();
+            this.Subject = subject;
+        }
         #endregion
 
         #region Properties
@@ -32,6 +35,21 @@ namespace Examination_System.Exams
         #endregion
 
         #region Methods
+        public TimeOnly GetTimeFromUserByMinutes()
+          => Helper.GetTimeOnlyByMinutes(
+                "the Time For Exam From (30 min to 180 min)",
+                false);
+        public int GetNumberOfQuestions(bool withConsoleClear = true)
+        {
+            int value = Helper.GetIntFromUser(
+                        "the Number of questions", false
+                        );
+
+            if (withConsoleClear) Console.Clear();
+
+            return value;
+        }
+
         public abstract void showAnswers();
         public override string ToString()
             => $"Number: {NumberOfQuestions},Time: {TimeOfExam},Subject: {Subject.SubjectName}";

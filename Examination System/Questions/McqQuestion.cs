@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examination_System.Exams;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,15 @@ namespace Examination_System.Questions
 {
     internal class McqQuestion : Question
     {
+        public McqQuestion()
+        {
+            
+        }
+
+        public McqQuestion(string header, string body, decimal mark, List<Answer> answerList, Answer rightAnswer) : base(header, body, mark, answerList, rightAnswer)
+        {
+        }
+
         public CountOfAnswer CountOfAnswers { get; set; }
         public override List<Answer> AnswerList
         {
@@ -18,6 +28,11 @@ namespace Examination_System.Questions
         {
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
+        }
+
+        public override List<Question> GetQuestionsFromUser(ExamType examType)
+        {
+            throw new NotImplementedException();
         }
     }
     enum CountOfAnswer
