@@ -23,7 +23,7 @@ namespace Examination_System.Exams
             this.TimeOfExam = GetTimeFromUserByMinutes();
             this.NumberOfQuestions = GetNumberOfQuestions();
             this.Subject = subject;
-            questionsList = SetQuestionListFromUser();
+            this.questionsList = SetQuestionListFromUser();
 
         }
         #endregion

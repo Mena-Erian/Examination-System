@@ -36,8 +36,9 @@ namespace Examination_System.Exams
         {
             List<Question> questions = new List<Question>(NumberOfQuestions);
 
-            foreach (Question question in questions)
+            for (int i = 0; i < NumberOfQuestions; i++)
             {
+                Console.Clear();
                 QuestionType questionsType = GetQuestionsTypeFromUser();
 
                 switch (questionsType)

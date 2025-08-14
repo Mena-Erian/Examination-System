@@ -22,7 +22,7 @@ namespace Examination_System.Questions
         protected Question()
         {
             this.Body = Helper.GetStringFromUser("Question Body", true);
-            this.Mark = Helper.GetIntFromUser("Question Mark", false);
+            this.Mark = Helper.GetDecimalFromUser("Question Mark", false);
             this.answersList = SetAnswersFromUser();
             this.rightAnswer = SetRightAnswerFromUser(this.answersList);
         }

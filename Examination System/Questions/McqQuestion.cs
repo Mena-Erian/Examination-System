@@ -21,11 +21,11 @@ namespace Examination_System.Questions
         internal int CountOfAnswers { get; } = 3;
         public override List<Answer> AnswerList
         {
-            get => throw new NotImplementedException();
+            get => this.answersList;
         }
         public override Answer RightAnswer
         {
-            get => throw new NotImplementedException();
+            get => this.rightAnswer;
         }
         #endregion
 

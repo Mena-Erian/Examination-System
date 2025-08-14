@@ -192,7 +192,7 @@ namespace AssignmentExamination_System
                 case false:
                     do
                     {
-                        Console.WriteLine($"Please Enter the {massageToUser}: ");
+                        Console.Write($"Please Enter the {massageToUser}: ");
                     }
                     while (!decimal.TryParse(Console.ReadLine(), out number));
                     break;
