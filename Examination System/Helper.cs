@@ -200,15 +200,27 @@ namespace AssignmentExamination_System
 
             return number;
         }
-        public static string GetStringFromUser(string dataName)
+        public static string GetStringFromUser(string dataName, bool withWrap = false)
         {
             string str = string.Empty;
-            do
+            if (withWrap)
             {
-                Console.Write($"Please Enter {dataName}: ");
-                str = Console.ReadLine() ?? string.Empty;
+                do
+                {
+                    Console.WriteLine($"Please Enter {dataName}: ");
+                    str = Console.ReadLine() ?? string.Empty;
+                }
+                while (str == string.Empty || int.TryParse(str, out _));
             }
-            while (str == string.Empty || int.TryParse(str, out _));
+            else
+            {
+                do
+                {
+                    Console.Write($"Please Enter {dataName}: ");
+                    str = Console.ReadLine() ?? string.Empty;
+                }
+                while (str == string.Empty || int.TryParse(str, out _));
+            }
 
             return str;
         }

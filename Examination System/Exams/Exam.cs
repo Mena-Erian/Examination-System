@@ -15,7 +15,7 @@ namespace Examination_System.Exams
         {
             NumberOfQuestions = numberOfQuestions;
             TimeOfExam = timeOfExam;
-            QuestionList = questionList;
+            this.questionsList = questionList;
             Subject = subject;
         }
         protected Exam(Subject subject)
@@ -23,18 +23,25 @@ namespace Examination_System.Exams
             this.TimeOfExam = GetTimeFromUserByMinutes();
             this.NumberOfQuestions = GetNumberOfQuestions();
             this.Subject = subject;
+            questionsList = SetQuestionListFromUser();
+
         }
+        #endregion
+
+        #region Feilds
+        private protected List<Question> questionsList;
         #endregion
 
         #region Properties
         public int NumberOfQuestions { get; set; }
         public TimeOnly TimeOfExam { get; set; }
-        public abstract List<Question> QuestionList { get; set; }
+        public abstract List<Question> QuestionList { get; }
         public Subject Subject { get; set; }
-
+        internal protected static List<QuestionType>? AvilableQuestionTypes { get; set; }
         #endregion
 
         #region Methods
+        private protected abstract List<Question> SetQuestionListFromUser();
         public TimeOnly GetTimeFromUserByMinutes()
           => Helper.GetTimeOnlyByMinutes(
                 "the Time For Exam From (30 min to 180 min)",
@@ -49,7 +56,7 @@ namespace Examination_System.Exams
 
             return value;
         }
-
+        public abstract List<Question> GetQuestionsFromUser(ExamType examType);
         public abstract void showAnswers();
         public override string ToString()
             => $"Number: {NumberOfQuestions},Time: {TimeOfExam},Subject: {Subject.SubjectName}";

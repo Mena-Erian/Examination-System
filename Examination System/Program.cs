@@ -15,16 +15,6 @@ namespace Examination_System
                 false);
 
             Exam exam = subject.CreateExam(examType);
-
-            
-
-            QuestionType typeOfQuestion = Helper.GetFromUserByType<QuestionType>(
-                "the Type of Question (1 for MCQ | 2 For True | False)",
-                false);
-
-
-
-
         }
     }
 }

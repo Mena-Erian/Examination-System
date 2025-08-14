@@ -1,4 +1,5 @@
-﻿using Examination_System.Exams;
+﻿using AssignmentExamination_System;
+using Examination_System.Exams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +16,34 @@ namespace Examination_System.Questions
             Header = header;
             Body = body;
             Mark = mark;
-            AnswerList = answerList;
-            RightAnswer = rightAnswer;
+            this.answersList = answerList;
+            this.rightAnswer = rightAnswer;
         }
-        protected Question() { }
+        protected Question()
+        {
+            this.Body = Helper.GetStringFromUser("Question Body", true);
+            this.Mark = Helper.GetIntFromUser("Question Mark", false);
+            this.answersList = SetAnswersFromUser();
+            this.rightAnswer = SetRightAnswerFromUser(this.answersList);
+        }
+        #endregion
+
+        #region Fields
+        private protected List<Answer> answersList;
+        private protected Answer rightAnswer;
         #endregion
 
         #region Properties
         public string Header { get; set; }
         public string Body { get; set; }
         public decimal Mark { get; set; }
-        public abstract List<Answer> AnswerList { get; set; }
-        public abstract Answer RightAnswer { get; set; }
+        public abstract List<Answer> AnswerList { get; }
+        public abstract Answer RightAnswer { get; }
         #endregion
 
         #region Methods
-        public abstract List<Question> GetQuestionsFromUser(ExamType examType);
+        public abstract List<Answer> SetAnswersFromUser();
+        public abstract Answer SetRightAnswerFromUser(List<Answer> answersList);
         public override string ToString() =>
             $"Header: {Header}, Body: {Body}, Mark: {Mark}, RightAnswer: {RightAnswer}";
         #endregion
