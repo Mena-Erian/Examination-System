@@ -48,6 +48,7 @@ namespace Examination_System.Exams
                         questions.Add(new McqQuestion());
                         break;
                     case QuestionType.TrueOrFalse:
+                        Console.WriteLine("True | False Question");
                         questions.Add(new TrueOrFalseQuestion());
                         break;
                 }
