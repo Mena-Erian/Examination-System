@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examination_System.Question
+namespace Examination_System.Exams
 {
-    internal class TrueOrFalseQuestion : Question
+    internal class FinalExam
     {
     }
 }

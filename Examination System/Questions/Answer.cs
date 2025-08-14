@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examination_System.Exam
+namespace Examination_System.Questions
 {
-    internal class PracticalExam
+     abstract class Answer
     {
     }
 }

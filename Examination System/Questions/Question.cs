@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examination_System.Question
+namespace Examination_System.Questions
 {
     abstract class Question
     {
