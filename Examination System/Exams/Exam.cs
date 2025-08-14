@@ -3,6 +3,7 @@ using Examination_System.Helpers;
 using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,48 +46,83 @@ namespace Examination_System.Exams
 
         #region Methods
         private protected abstract List<Question> SetQuestionListFromUser();
-        private protected virtual void ShowExamQustions()
+        private protected virtual void ShowExamQustions(string ExamType)
         {
             userAnswers = new List<Answer>(questionsList.Count);
             for (int i = 0; i < questionsList.Count; i++)
             {
+                Console.WriteLine($"{ExamType}\t Mark {questionsList[i].Mark}\t");
                 Console.WriteLine($"{questionsList[i].Body}\n");
                 foreach (var ans in questionsList[i].AnswerList)
                 {
                     Console.WriteLine($"{ans.AnswerId}- {ans.AnswerText}");
                 }
+
                 int userAnswerId = Helper.GetIntFromUser("The answer Id", false);
                 userAnswers.Add(
                     new Answer(userAnswerId,
-                     questionsList[i].AnswerList[userAnswerId].AnswerText));
+                     questionsList[i].AnswerList[userAnswerId - 1].AnswerText));
             }
         }
-        public void StartExam()
+       public void StartExam()
         {
-            DateTime endTime = DateTime.Now.Add(TimeOfExam.ToTimeSpan());
+            DateTime examStart = DateTime.Now;
+            DateTime examEndLimit = examStart.Add(TimeOfExam.ToTimeSpan());
+            bool examFinished = false;
 
-            System.Timers.Timer timer = new System.Timers.Timer(1000); // 1 second
+            using System.Timers.Timer timer = new System.Timers.Timer(1000); // 1 second
             timer.Elapsed += OnTimedEvent;
             timer.Start();
 
-            ShowExamQustions(); // Show once at the start
+            // Show the exam questions
+            ShowExamQustions("MCQ Question");
 
-            // Prevent program from exiting before timer finishes
-            while (DateTime.Now < endTime)
+            // Simulate answering questions (replace with your logic)
+            showResultOfAnswers(userAnswers, out _, out _);
+            examFinished = true; // User finished early
+
+            // Wait until either time runs out or user finished
+            while (!examFinished && DateTime.Now < examEndLimit)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
 
             timer.Stop();
-            Console.WriteLine("⏰ Exam ended.");
+
+            DateTime examActualEnd = DateTime.Now;
+            TimeSpan durationTaken = examActualEnd - examStart;
+            
+            Console.WriteLine($"Time = {durationTaken.TotalSeconds} seconds");
+            Console.WriteLine("Thank you.");
 
             void OnTimedEvent(object sender, ElapsedEventArgs e)
             {
-                //Console.WriteLine($"⏳ Exam running... {DateTime.Now}");
+                if (examFinished || DateTime.Now >= examEndLimit)
+                {
+                    timer.Stop();
+                }
             }
         }
 
-        public abstract void showAnswers();
+        public virtual void showResultOfAnswers(List<Answer> userAnswers, out string gradeText, out decimal grade)
+        {
+            Console.Clear();
+            List<decimal> userMarks = new List<decimal>(userAnswers.Count);
+            decimal totalFinalMarks = this.questionsList.Select(s => s.Mark).Sum();
+            for (int i = 0; i < this.questionsList.Count; i++)
+            {
+                Console.WriteLine($"\nQuestion {i + 1} : {questionsList[i].Body}");
+                Console.WriteLine($"Your Answer => {userAnswers[i]}");
+                Console.WriteLine($"Right is Answer => {this.questionsList[i].RightAnswer}");
+
+                if (userAnswers[i].AnswerId.CompareTo(questionsList[i].RightAnswer.AnswerId) == 0)
+                {
+                    userMarks.Add(i);
+                }
+            }
+            grade = userMarks.Sum();
+            gradeText = $"Your Grade is {userMarks.Sum()} from {totalFinalMarks}";
+        }
         public TimeOnly GetTimeFromUserByMinutes()
         {
             return Helper.GetTimeOnlyByMinutes(

@@ -39,6 +39,7 @@ namespace Examination_System.Exams
 
             for (int i = 0; i < NumberOfQuestions; i++)
             {
+                Console.Clear();
                 QuestionType questionsType = GetQuestionsTypeFromUser();
                 Console.Clear();
 
@@ -63,13 +64,15 @@ namespace Examination_System.Exams
                "the Type of Question (1 for MCQ | 2 For True | False)",
                false);
         }
-        private decimal CalcGrade()
+        private protected override void ShowExamQustions(string E)
         {
-            throw new NotImplementedException();
+            base.ShowExamQustions("MCQ Question");
         }
-        public override void showAnswers()
+        public override void showResultOfAnswers(List<Answer> userAnswers, out string gradetext, out decimal grade)
         {
-            throw new NotImplementedException();
+            base.showResultOfAnswers(userAnswers, out gradetext, out grade);
+            Console.WriteLine(gradetext);
+            this.Grade = grade;
         }
         public override string ToString() => $"{base.ToString()}, Grade: {Grade}";
         #endregion

@@ -1,4 +1,5 @@
-﻿using Examination_System.Questions;
+﻿using AssignmentExamination_System;
+using Examination_System.Questions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,13 @@ namespace Examination_System.Exams
 
             return questions;
         }
-        public override void showAnswers()
+        public override void showResultOfAnswers(List<Answer> userAnswers, out string gradeText, out decimal grade)
         {
-            throw new NotImplementedException();
+            base.showResultOfAnswers(userAnswers, out gradeText, out grade);
+        }
+        private protected override void ShowExamQustions(string ExamType)
+        {
+            base.ShowExamQustions("True | False Question");
         }
         #endregion
     }
